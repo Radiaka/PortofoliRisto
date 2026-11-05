@@ -138,6 +138,7 @@ if (copyButton && copyStatus) {
 
 if (document.getElementById("spotify-connect")) {
 const SPOTIFY_CLIENT_ID = "b913d8a54b1f4d12b69310e35834dbe6";
+const SPOTIFY_OWNER_ID = "31aawj2rjoaqf3kx3scbmbtdnzbq";
 const spotifyConnectButton = document.getElementById("spotify-connect");
 const spotifyDisconnectButton = document.getElementById("spotify-disconnect");
 const spotifyRefreshButton = document.getElementById("spotify-refresh");
@@ -596,20 +597,37 @@ function schedulePlaybackRefresh() {
 }
 
 async function loadSpotifyAccount() {
-  const results = await Promise.allSettled([
-    spotifyApi("/me"),
-    refreshSpotifyData(true),
-  ]);
-  if (results[0].status === "fulfilled") {
-    updateSpotifyProfile(results[0].value);
-  } else {
-    setSpotifyStatus(results[0].reason.message, "error");
+  let profile;
+  try {
+    profile = await spotifyApi("/me");
+  } catch (error) {
+    setSpotifyStatus(error.message, "error");
     return;
   }
-  if (results[1].status === "rejected") {
-    setSpotifyStatus(results[1].reason.message, "error");
+
+  if (profile.id?.toLowerCase() !== SPOTIFY_OWNER_ID.toLowerCase()) {
+    clearSpotifySession();
+    spotifyProfileName.textContent = "Akun Spotify tidak cocok";
+    spotifyProfileAvatar.textContent = "♪";
+    spotifyProfileLink.href = `https://open.spotify.com/user/${SPOTIFY_OWNER_ID}`;
+    spotifyProfileLink.textContent = "Buka profil pemilik ↗";
+    updateCurrentTrack(null);
+    spotifyHistoryList.replaceChildren();
+    const empty = document.createElement("li");
+    empty.className = "history-empty";
+    empty.textContent = "Aktivitas tidak ditampilkan untuk akun ini.";
+    spotifyHistoryList.appendChild(empty);
+    spotifyHistorySummary.textContent = "Hubungkan dengan akun Spotify pemilik portofolio.";
+    setSpotifyStatus(
+      "Akun yang terhubung bukan akun pemilik portofolio. Keluar dari Spotify di browser, masuk dengan akun pemilik, lalu coba Connect lagi.",
+      "error",
+    );
     return;
   }
+
+  updateSpotifyProfile(profile);
+  await refreshSpotifyData(true);
+  if (!readSpotifySession()) return;
 
   spotifyConnectButton.hidden = true;
   spotifyDisconnectButton.hidden = false;
