@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f5f6fb">
+  <meta name="description" content="My Spotify profile, recently played tracks, and current listening.">
+  <title>Spotify — Your Name</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <nav>
+    <b>&lt;YN/&gt;</b>
+    <div>
+      <a href="Portofolio.html#about">About</a>
+      <a href="Portofolio.html#projects">Projects</a>
+      <a href="spotify.html" aria-current="page">Spotify</a>
+      <a href="Portofolio.html#contact">Contact</a>
+      <a href="Portofolio.html#skills">Skills</a>
+      <a href="Portofolio.html#fun">Fun</a>
+      <button id="theme" aria-label="Toggle theme">◐</button>
+    </div>
+  </nav>
+
+  <main>
+    <section id="spotify" class="spotify-section spotify-page">
+      <div class="spotify-heading">
+        <div>
+          <p class="spotify-kicker"><span class="spotify-live-dot"></span> MY SPOTIFY</p>
+          <h1>Soundtrack of<br>my recent days.</h1>
+          <p class="spotify-page-intro">A little window into what I've been listening to lately.</p>
+        </div>
+        <a class="spotify-profile-link" href="https://open.spotify.com/user/31aawj2rjoaqf3kx3scbmbtdnzbq" target="_blank" rel="noopener noreferrer">
+          Open Spotify profile <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+      <div class="spotify-setup">
+        <div class="spotify-profile" id="spotify-profile" aria-live="polite">
+          <div class="spotify-avatar" id="spotify-avatar" aria-hidden="true">♪</div>
+          <div>
+            <span class="spotify-label">PROFILE</span>
+            <strong id="spotify-display-name">Connect to load your profile</strong>
+            <a id="spotify-user-link" href="https://open.spotify.com/user/31aawj2rjoaqf3kx3scbmbtdnzbq" target="_blank" rel="noopener noreferrer">spotify.com/user/31aawj2rjoaqf3kx3scbmbtdnzbq ↗</a>
+          </div>
+        </div>
+        <div class="spotify-connect">
+          <div class="spotify-setup-help">Connect your Spotify account to show your profile and listening activity. Authorization is handled securely with PKCE.</div>
+          <code id="spotify-redirect-uri"></code>
+          <div class="spotify-connect-actions">
+            <button class="spotify-connect-button" id="spotify-connect" type="button">Connect Spotify <span aria-hidden="true">↗</span></button>
+            <button class="spotify-logout-button" id="spotify-disconnect" type="button" hidden>Disconnect</button>
+          </div>
+        </div>
+      </div>
+      <p class="spotify-status" id="spotify-status" role="status" aria-live="polite">Connect your Spotify account to show your listening activity. Your music data stays in this browser.</p>
+      <div class="spotify-music-grid">
+        <article class="now-playing-card">
+          <div class="spotify-card-heading">
+            <div><span class="spotify-label">RIGHT NOW</span><h2>Currently listening</h2></div>
+            <span class="playing-indicator" aria-hidden="true"><i></i><i></i><i></i></span>
+          </div>
+          <div class="now-playing-content" id="spotify-now-playing" aria-live="polite">
+            <div class="track-art track-art-placeholder">♫</div>
+            <div class="track-copy"><strong>Nothing playing yet</strong><span>Connect Spotify to check playback</span></div>
+          </div>
+        </article>
+        <article class="history-card">
+          <div class="spotify-card-heading">
+            <div><span class="spotify-label">LAST 7 DAYS</span><h2>Most played</h2></div>
+            <button class="spotify-refresh" id="spotify-refresh" type="button" aria-label="Refresh listening activity" disabled>↻</button>
+          </div>
+          <p class="spotify-history-intro" id="spotify-history-summary">Repeated plays are grouped together and sorted by play count.</p>
+          <ol class="spotify-track-list" id="spotify-history-list"><li class="history-empty">Your recent tracks will show up here.</li></ol>
+        </article>
+      </div>
+      <p class="spotify-footnote">Play counts are grouped from Spotify's recent-play history for the last 7 days. Playback updates automatically every few seconds; Spotify does not provide real-time push updates.</p>
+    </section>
+  </main>
+  <footer><a href="Portofolio.html">← Back to portfolio</a><span>© 2026 Nanashi Mumei</span></footer>
+</body>
+</html>
