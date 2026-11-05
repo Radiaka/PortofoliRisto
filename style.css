@@ -565,11 +565,14 @@ footer span { color: var(--mut); }
 .game-category { margin: 0 0 3px; color: var(--mut); font-size: 8px; font-weight: 800; letter-spacing: .12em; }
 .game-title-row h3 { margin: 0; font-size: 17px; letter-spacing: -.035em; line-height: 1.25; }
 .game-mark { display: grid; width: 36px; height: 36px; flex: 0 0 36px; place-items: center; border: 1px solid color-mix(in srgb, var(--game-accent) 35%, var(--bd)); border-radius: 12px; background: color-mix(in srgb, var(--game-accent) 10%, var(--card)); color: var(--game-accent); font-size: 10px; font-weight: 900; }
-.game-profile { display: flex; min-width: 0; align-items: center; gap: 10px; margin: 16px 0 13px; padding: 10px; border: 1px solid var(--bd); border-radius: 13px; background: color-mix(in srgb, var(--bg) 70%, var(--card)); }
+.game-profile { display: flex; min-width: 0; align-items: center; gap: 10px; margin: 16px 0 13px; padding: 10px; border: 1px solid var(--bd); border-radius: 13px; background: color-mix(in srgb, var(--bg) 70%, var(--card)); color: var(--tx); text-decoration: none; transition: border-color .2s ease, background .2s ease, transform .2s ease; }
+a.game-profile:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--game-accent) 55%, var(--bd)); background: color-mix(in srgb, var(--game-accent) 7%, var(--card)); }
+a.game-profile:focus-visible { outline: 3px solid var(--game-accent); outline-offset: 3px; }
 .profile-avatar { display: grid; width: 34px; height: 34px; flex: 0 0 34px; place-items: center; border-radius: 11px; background: color-mix(in srgb, var(--game-accent) 15%, var(--card)); color: var(--game-accent); font-size: 11px; font-weight: 900; }
-.game-profile > span:last-child { display: flex; min-width: 0; flex-direction: column; gap: 2px; }
+.game-profile > span:nth-child(2) { display: flex; min-width: 0; flex: 1; flex-direction: column; gap: 2px; }
 .game-profile small { color: var(--mut); font-size: 7px; font-weight: 800; letter-spacing: .12em; }
 .game-profile strong { overflow: hidden; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+.profile-open { flex: 0 0 auto; color: var(--game-accent); font-size: 15px; font-weight: 800; }
 .game-link { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--tx); font-size: 10px; font-weight: 750; text-decoration: none; }
 .game-link span { color: var(--game-accent); font-size: 15px; transition: transform .2s ease; }
 .game-link:hover span { transform: translate(2px,-2px); }
