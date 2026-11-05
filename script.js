@@ -178,6 +178,224 @@ if (document.body.classList.contains("portfolio-home")) {
   }
 }
 
+const projectGrid = document.getElementById("project-grid");
+const featuredProject = document.querySelector("[data-featured-repo]");
+if (projectGrid || featuredProject) {
+  const projectCatalog = {
+    portofoliristo: {
+      cardClass: "project-portfolio",
+      index: "WEB",
+      icon: "✳",
+      artTitle: "A SPACE\nOF MY OWN",
+      artCaption: "PORTFOLIO WEBSITE",
+      type: "PERSONAL WEBSITE",
+      description: "Website portofolio pribadi yang dibuat dengan HTML, CSS, dan JavaScript.",
+      tags: ["HTML", "CSS", "JavaScript"],
+      demo: "https://radiaka.github.io/PortofoliRisto/",
+      demoLabel: "Live site",
+    },
+    gg: {
+      cardClass: "project-gg",
+      index: "GAME",
+      icon: "⌁",
+      artTitle: "A LITTLE\nGAME WORLD",
+      artCaption: "GG",
+      type: "GAME EXPERIMENT",
+      description: "Game sederhana yang dibuat dengan Python.",
+      tags: ["Python", "Game"],
+      demo: "https://gg-nine-blond.vercel.app",
+    },
+    hololep: {
+      cardClass: "project-hololep",
+      index: "GAME",
+      icon: "◇",
+      artTitle: "TWO-PLAYER\nSHOOTER",
+      artCaption: "HOLOLEP",
+      type: "2-PLAYER SHOOTER",
+      description: "Game tembak-tembakan dua pemain yang dibuat dengan Python.",
+      tags: ["Python", "2 Pemain", "Game"],
+      demo: "https://hololep.vercel.app",
+    },
+    hololive: {
+      cardClass: "project-hololive",
+      index: "JAVA",
+      icon: "✧",
+      artTitle: "HOLOLIVE\nPROJECT",
+      artCaption: "JAVA REPOSITORY",
+      type: "CODE REPOSITORY",
+      description: "Repository Java bertema Hololive.",
+      tags: ["Java"],
+    },
+    portofolio: {
+      cardClass: "project-old-portfolio",
+      index: "ARCHIVE",
+      icon: "⌘",
+      artTitle: "PORTFOLIO\nARCHIVE",
+      artCaption: "EARLIER REPOSITORY",
+      type: "OLDER PORTFOLIO REPOSITORY",
+      description: "Repository portofolio yang lebih awal.",
+      tags: ["Archive"],
+    },
+  };
+
+  function getProjectInfo(repository) {
+    const knownInfo = projectCatalog[repository.name.toLowerCase()];
+    if (knownInfo) return knownInfo;
+
+    return {
+      cardClass: "project-generic",
+      index: repository.language || "GITHUB",
+      icon: "</>",
+      artTitle: repository.name,
+      artCaption: "GITHUB REPOSITORY",
+      type: "PUBLIC REPOSITORY",
+      description: repository.description || "Repository publik di GitHub.",
+      tags: repository.language ? [repository.language] : ["GitHub"],
+    };
+  }
+
+  function createProjectLink(label, url) {
+    const link = document.createElement("a");
+    link.href = url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.append(document.createTextNode(label));
+
+    const arrow = document.createElement("span");
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "↗";
+    link.append(arrow);
+    return link;
+  }
+
+  function createProjectCard(repository, index) {
+    const info = getProjectInfo(repository);
+    const slug = repository.name.toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-|-$/g, "");
+    const card = document.createElement("article");
+    card.className = `project-card ${info.cardClass}`;
+    card.id = slug;
+    card.dataset.repoName = repository.name;
+
+    const art = document.createElement("div");
+    art.className = "project-card-art";
+    const artIndex = document.createElement("span");
+    artIndex.className = "project-index";
+    artIndex.textContent = `${String(index + 1).padStart(2, "0")} / ${info.index}`;
+    const artIcon = document.createElement("span");
+    artIcon.className = "project-art-icon";
+    artIcon.setAttribute("aria-hidden", "true");
+    artIcon.textContent = info.icon;
+    const artTitle = document.createElement("span");
+    artTitle.className = "project-art-title";
+    artTitle.textContent = info.artTitle;
+    const artCaption = document.createElement("span");
+    artCaption.className = "project-art-caption";
+    artCaption.textContent = info.artCaption;
+    art.append(artIndex, artIcon, artTitle, artCaption);
+
+    const body = document.createElement("div");
+    body.className = "project-card-body";
+    const nameRow = document.createElement("div");
+    nameRow.className = "project-name-row";
+    const nameGroup = document.createElement("div");
+    const type = document.createElement("p");
+    type.className = "project-type";
+    type.textContent = info.type;
+    const name = document.createElement("h3");
+    name.textContent = repository.name;
+    nameGroup.append(type, name);
+
+    const language = document.createElement("span");
+    const languageClass = repository.language
+      ? repository.language.toLowerCase().replace(/[^a-z0-9-]+/g, "-")
+      : "github";
+    language.className = `project-language language-${languageClass}`;
+    language.textContent = repository.language || "GitHub";
+    nameRow.append(nameGroup, language);
+
+    const description = document.createElement("p");
+    description.className = "project-description";
+    description.textContent = info.description;
+    const links = document.createElement("div");
+    links.className = "project-card-links";
+    links.append(createProjectLink("Source code", repository.html_url));
+    const demoUrl = info.demo || repository.homepage;
+    if (demoUrl) links.append(createProjectLink(info.demoLabel || "Play demo", demoUrl));
+    body.append(nameRow, description, links);
+    card.append(art, body);
+    return card;
+  }
+
+  function updateFeaturedProject(repository) {
+    if (!featuredProject) return;
+    if (!repository) {
+      featuredProject.hidden = true;
+      return;
+    }
+
+    const info = getProjectInfo(repository);
+    const slug = repository.name.toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-|-$/g, "");
+    const language = repository.language || "GitHub";
+    featuredProject.hidden = false;
+    featuredProject.href = `projects.html#${slug}`;
+    featuredProject.querySelector(".project-monogram").textContent = repository.name.slice(0, 1).toUpperCase();
+    featuredProject.querySelector(".project-art-label").textContent = info.artTitle.replace(/\n/g, " ");
+    featuredProject.querySelector(".featured-project-type").textContent = `${info.type} · ${language.toUpperCase()}`;
+    featuredProject.querySelector(".featured-project-copy > strong").textContent = repository.name;
+    featuredProject.querySelector(".featured-project-description").textContent = info.description;
+    featuredProject.querySelector(".project-tags").replaceChildren(...info.tags.map((tag) => {
+      const item = document.createElement("i");
+      item.textContent = tag;
+      return item;
+    }));
+  }
+
+  async function synchronizeProjects() {
+    const status = document.getElementById("project-sync-status");
+    try {
+      const repositories = [];
+      let page = 1;
+      while (true) {
+        const response = await fetch(`https://api.github.com/users/Radiaka/repos?type=owner&per_page=100&sort=updated&page=${page}`, { cache: "no-cache" });
+        if (!response.ok) throw new Error(`GitHub API returned ${response.status}`);
+        const pageRepositories = await response.json();
+        if (!Array.isArray(pageRepositories)) throw new Error("Unexpected GitHub repository response");
+        repositories.push(...pageRepositories.filter((repository) =>
+          repository.owner?.login?.toLowerCase() === "radiaka" && !repository.private && !repository.fork
+        ));
+        if (pageRepositories.length < 100) break;
+        page += 1;
+      }
+
+      const featuredRepository = repositories.find((repository) =>
+        repository.name.toLowerCase() === featuredProject?.dataset.featuredRepo?.toLowerCase()
+      ) || repositories[0];
+      updateFeaturedProject(featuredRepository);
+
+      if (projectGrid) {
+        projectGrid.replaceChildren(...repositories.map(createProjectCard));
+        const count = document.getElementById("project-count");
+        if (count) count.textContent = `${String(repositories.length).padStart(2, "0")} REPOSITORIES`;
+      }
+      if (status) {
+        const updatedDate = new Intl.DateTimeFormat("id-ID", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        }).format(new Date());
+        status.textContent = repositories.length
+          ? `Daftar diperbarui otomatis dari GitHub · ${updatedDate}.`
+          : "Belum ada repository publik yang dapat ditampilkan.";
+      }
+    } catch (error) {
+      console.error("Gagal menyinkronkan daftar project dari GitHub.", error);
+      if (status) status.textContent = "Daftar belum dapat diperbarui otomatis. Lihat profil GitHub untuk versi terbaru.";
+    }
+  }
+
+  synchronizeProjects();
+}
+
 if (document.getElementById("spotify-connect")) {
 const SPOTIFY_CLIENT_ID = "b913d8a54b1f4d12b69310e35834dbe6";
 const SPOTIFY_OWNER_ID = "31aawj2rjoaqf3kx3scbmbtdnzbq";

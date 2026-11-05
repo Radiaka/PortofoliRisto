@@ -704,6 +704,11 @@ a.game-profile:focus-visible { outline: 3px solid var(--game-accent); outline-of
 .project-card-links a span { color: var(--project-accent); font-size: 13px; }
 .project-source-note { margin: 17px 0 0; color: var(--mut); font-size: 10px; text-align: center; }
 .project-source-note a { color: var(--ac); font-weight: 700; text-decoration: none; }
+.project-sync-status { min-height: 1.5em; margin: 14px 0 -7px; color: var(--mut); font-size: 10px; text-align: center; }
+.project-card-art .project-art-title { white-space: pre-line; }
+.project-generic { --project-accent: #65cdbd; --project-art-bg: linear-gradient(125deg,#243c4c,#327b80 58%,#62b39b); }
+.language-javascript { --project-accent: #c3a84f; }
+.language-html { --project-accent: #e27d52; }
 .projects-outro { position: relative; max-width: none; margin: 74px 0 0; padding: 44px 20px; border: 1px solid var(--bd); border-radius: 24px; background: linear-gradient(120deg, color-mix(in srgb, #5fbfac 12%, var(--card)), var(--card)); text-align: center; }
 .projects-outro > p { margin: 0; color: var(--mut); font-size: 9px; font-weight: 850; letter-spacing: .2em; }
 .projects-outro h2 { margin: 10px 0 17px; font-size: clamp(30px, 5vw, 48px); letter-spacing: -.06em; line-height: 1.04; }

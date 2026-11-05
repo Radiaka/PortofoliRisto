@@ -52,11 +52,11 @@
           <p class="projects-eyebrow">FROM MY GITHUB</p>
           <h2>Selected repositories</h2>
         </div>
-        <span class="project-count">05 REPOSITORIES</span>
+        <span class="project-count" id="project-count">05 REPOSITORIES</span>
       </div>
 
-      <div class="project-grid">
-        <article class="project-card project-portfolio">
+      <div class="project-grid" id="project-grid">
+        <article class="project-card project-portfolio" data-repo-name="PortofoliRisto">
           <div class="project-card-art"><span class="project-index">01 / WEB</span><span class="project-art-icon" aria-hidden="true">✳</span><span class="project-art-title">A SPACE<br>OF MY OWN</span><span class="project-art-caption">PORTFOLIO WEBSITE</span></div>
           <div class="project-card-body">
             <div class="project-name-row"><div><p class="project-type">PERSONAL WEBSITE</p><h3>PortofoliRisto</h3></div><span class="project-language language-css">CSS</span></div>
@@ -68,7 +68,7 @@
           </div>
         </article>
 
-        <article class="project-card project-gg">
+        <article class="project-card project-gg" data-repo-name="GG">
           <div class="project-card-art"><span class="project-index">02 / GAME</span><span class="project-art-icon" aria-hidden="true">⌁</span><span class="project-art-title">A LITTLE<br>GAME WORLD</span><span class="project-art-caption">GG</span></div>
           <div class="project-card-body">
             <div class="project-name-row"><div><p class="project-type">GAME EXPERIMENT</p><h3>GG</h3></div><span class="project-language language-python">Python</span></div>
@@ -80,7 +80,7 @@
           </div>
         </article>
 
-        <article class="project-card project-hololep" id="hololep">
+        <article class="project-card project-hololep" id="hololep" data-repo-name="hololep">
           <div class="project-card-art"><span class="project-index">03 / GAME</span><span class="project-art-icon" aria-hidden="true">◇</span><span class="project-art-title">TWO-PLAYER<br>SHOOTER</span><span class="project-art-caption">HOLOLEP</span></div>
           <div class="project-card-body">
             <div class="project-name-row"><div><p class="project-type">2-PLAYER SHOOTER</p><h3>hololep</h3></div><span class="project-language language-python">Python</span></div>
@@ -92,7 +92,7 @@
           </div>
         </article>
 
-        <article class="project-card project-hololive">
+        <article class="project-card project-hololive" data-repo-name="Hololive">
           <div class="project-card-art"><span class="project-index">04 / JAVA</span><span class="project-art-icon" aria-hidden="true">✧</span><span class="project-art-title">HOLOLIVE<br>PROJECT</span><span class="project-art-caption">JAVA REPOSITORY</span></div>
           <div class="project-card-body">
             <div class="project-name-row"><div><p class="project-type">CODE REPOSITORY</p><h3>Hololive</h3></div><span class="project-language language-java">Java</span></div>
@@ -103,7 +103,7 @@
           </div>
         </article>
 
-        <article class="project-card project-old-portfolio">
+        <article class="project-card project-old-portfolio" data-repo-name="Portofolio">
           <div class="project-card-art"><span class="project-index">05 / ARCHIVE</span><span class="project-art-icon" aria-hidden="true">⌘</span><span class="project-art-title">PORTFOLIO<br>ARCHIVE</span><span class="project-art-caption">EARLIER REPOSITORY</span></div>
           <div class="project-card-body">
             <div class="project-name-row"><div><p class="project-type">OLDER PORTFOLIO REPOSITORY</p><h3>Portofolio</h3></div><span class="project-language language-github">GitHub</span></div>
@@ -114,7 +114,8 @@
           </div>
         </article>
       </div>
-      <p class="project-source-note">Daftar ini berdasarkan repository publik di <a href="https://github.com/Radiaka?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub Radiaka</a>.</p>
+      <p class="project-sync-status" id="project-sync-status" role="status" aria-live="polite"></p>
+      <p class="project-source-note">Daftar disinkronkan dari repository publik milik saya di <a href="https://github.com/Radiaka?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub Radiaka</a>.</p>
     </section>
 
     <section class="projects-outro">
