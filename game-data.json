@@ -1,0 +1,44 @@
+{
+  "games": {
+    "genshin": {
+      "uid": "1801263252",
+      "region": "ASIA",
+      "name": "Fujimaru",
+      "adventureRank": 48,
+      "worldLevel": 5,
+      "achievements": 260,
+      "showcaseCharacters": 3,
+      "source": "Enka.Network public showcase",
+      "fetchedAt": "2026-11-05T07:02:30.428Z",
+      "stale": false,
+      "error": null
+    },
+    "zzz": {
+      "uid": "1313396424",
+      "region": "Asia",
+      "name": "Miyabi",
+      "interKnotLevel": 53,
+      "showcaseAgents": 1,
+      "highestAgentLevel": 60,
+      "source": "Enka.Network public showcase",
+      "fetchedAt": "2026-11-05T07:02:31.125Z",
+      "stale": false,
+      "error": null
+    },
+    "hsr": {
+      "uid": "833578527",
+      "region": "ASIA",
+      "name": "Radiaka",
+      "trailblazeLevel": 70,
+      "equilibriumLevel": 6,
+      "achievements": 606,
+      "showcaseCharacters": 8,
+      "charactersOwned": 45,
+      "source": "Enka.Network public showcase",
+      "fetchedAt": "2026-11-05T07:02:31.888Z",
+      "stale": false,
+      "error": null
+    }
+  },
+  "updatedAt": "2026-11-05T07:02:31.888Z"
+}

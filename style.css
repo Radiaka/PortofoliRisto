@@ -554,6 +554,7 @@ footer span { color: var(--mut); }
 .game-symbol { position: absolute; top: 25px; right: 27px; color: rgba(255,255,255,.82); font-size: 46px; line-height: 1; text-shadow: 0 5px 25px rgba(0,0,0,.24); }
 .game-art-title { font-size: 28px; font-weight: 900; letter-spacing: -.055em; line-height: .95; text-shadow: 0 5px 20px rgba(0,0,0,.2); }
 .game-art-caption { margin-top: 9px; color: rgba(255,255,255,.72); font-size: 8px; font-weight: 800; letter-spacing: .2em; }
+.game-logo { position: absolute; top: 30px; right: 27px; width: 43px; height: 43px; color: rgba(255,255,255,.9); filter: drop-shadow(0 5px 15px rgba(0,0,0,.2)); }
 .game-zzz { --game-accent: #d54b85; --game-art-bg: linear-gradient(125deg,#2c1a31,#a63364 60%,#eb805b); }
 .game-genshin { --game-accent: #42a982; --game-art-bg: linear-gradient(125deg,#173e4c,#238b78 58%,#b5b566); }
 .game-hsr { --game-accent: #9c79dc; --game-art-bg: linear-gradient(125deg,#202448,#514a98 58%,#b66f97); }
@@ -573,6 +574,17 @@ a.game-profile:focus-visible { outline: 3px solid var(--game-accent); outline-of
 .game-profile small { color: var(--mut); font-size: 7px; font-weight: 800; letter-spacing: .12em; }
 .game-profile strong { overflow: hidden; font-size: 10px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
 .profile-open { flex: 0 0 auto; color: var(--game-accent); font-size: 15px; font-weight: 800; }
+.game-live-data { min-height: 89px; margin: 0 0 13px; padding: 11px 12px; border: 1px solid color-mix(in srgb, var(--game-accent) 24%, var(--bd)); border-radius: 13px; background: color-mix(in srgb, var(--game-accent) 5%, var(--card)); }
+.live-data-heading { display: block; margin-bottom: 8px; color: var(--mut); font-size: 7px; font-weight: 850; letter-spacing: .1em; }
+.live-data-stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; margin: 0; }
+.live-data-stats > div { display: flex; min-width: 0; flex-direction: column; gap: 1px; }
+.live-data-stats dt { overflow: hidden; color: var(--mut); font-size: 8px; text-overflow: ellipsis; white-space: nowrap; }
+.live-data-stats dd { overflow: hidden; margin: 0; color: var(--tx); font-size: 11px; font-weight: 800; text-overflow: ellipsis; white-space: nowrap; }
+.live-data-status { display: block; padding: 9px 0; color: var(--mut); font-size: 9px; line-height: 1.5; }
+.live-data-status::before { display: inline-block; width: 6px; height: 6px; margin-right: 7px; border-radius: 50%; background: var(--game-accent); content: ""; vertical-align: 1px; }
+.live-data-status.is-unavailable::before { background: #d77852; }
+.live-data-updated, .live-data-warning { display: block; margin-top: 8px; color: var(--mut); font-size: 8px; line-height: 1.4; }
+.live-data-warning { color: #b76b3d; }
 .game-link { display: flex; align-items: center; justify-content: space-between; gap: 10px; color: var(--tx); font-size: 10px; font-weight: 750; text-decoration: none; }
 .game-link span { color: var(--game-accent); font-size: 15px; transition: transform .2s ease; }
 .game-link:hover span { transform: translate(2px,-2px); }
@@ -600,6 +612,7 @@ a.game-profile:focus-visible { outline: 3px solid var(--game-accent); outline-of
   .game-art { height: 150px; padding: 14px; }
   .game-art-title { font-size: 24px; }
   .game-symbol { top: 24px; right: 20px; font-size: 38px; }
+  .game-logo { top: 26px; right: 20px; width: 37px; height: 37px; }
   .game-card-body { padding: 14px; }
   .game-title-row h3 { font-size: 15px; }
   .game-profile { gap: 8px; margin-top: 12px; padding: 8px; }

@@ -15,6 +15,7 @@ function getPreferredTheme() {
   } catch {
     return null;
   }
+
 }
 
 function applyTheme(theme) {
@@ -766,4 +767,102 @@ handleSpotifyCallback().then((isCallback) => {
     setSpotifyStatus(`Could not restore Spotify session: ${error.message}`, "error");
   }
 }).catch((error) => setSpotifyStatus(`Spotify sign-in failed: ${error.message}`, "error"));
+}
+
+if (document.getElementById("genshin-live-data")) {
+  const gameDataLabels = {
+    genshin: [
+      ["UID", "uid"],
+      ["Nama", "name"],
+      ["Adventure Rank", "adventureRank"],
+      ["World Level", "worldLevel"],
+      ["Achievement", "achievements"],
+      ["Karakter showcase", "showcaseCharacters"],
+    ],
+    zzz: [
+      ["UID", "uid"],
+      ["Nama", "name"],
+      ["Inter-Knot Level", "interKnotLevel"],
+      ["Agent showcase", "showcaseAgents"],
+      ["Level agent tertinggi", "highestAgentLevel"],
+    ],
+    hsr: [
+      ["UID", "uid"],
+      ["Nama", "name"],
+      ["Trailblaze Level", "trailblazeLevel"],
+      ["Equilibrium Level", "equilibriumLevel"],
+      ["Achievement", "achievements"],
+      ["Karakter showcase", "showcaseCharacters"],
+      ["Karakter dimiliki", "charactersOwned"],
+    ],
+  };
+
+  function renderGameProfile(container, game, fields) {
+    container.replaceChildren();
+    const heading = document.createElement("span");
+    heading.className = "live-data-heading";
+    heading.textContent = game.source || "DATA DARI SHOWCASE PUBLIK";
+    const list = document.createElement("dl");
+    list.className = "live-data-stats";
+
+    fields.forEach(([label, key]) => {
+      if (game[key] === null || game[key] === undefined || game[key] === "") return;
+      const row = document.createElement("div");
+      const term = document.createElement("dt");
+      const detail = document.createElement("dd");
+      term.textContent = label;
+      detail.textContent = String(game[key]);
+      row.append(term, detail);
+      list.appendChild(row);
+    });
+
+    if (game.stale || game.error) {
+      const warning = document.createElement("span");
+      warning.className = "live-data-warning";
+      warning.textContent = "Data terakhir ditampilkan; pembaruan terbaru gagal.";
+      container.append(heading, list, warning);
+      return;
+    }
+
+    const fetchedAt = document.createElement("span");
+    fetchedAt.className = "live-data-updated";
+    fetchedAt.textContent = game.fetchedAt
+      ? `Diperbarui ${new Intl.DateTimeFormat("id-ID", { dateStyle: "medium", timeStyle: "short" }).format(new Date(game.fetchedAt))}`
+      : "Menunggu pembaruan profil";
+    container.append(heading, list, fetchedAt);
+  }
+
+  async function loadGameSnapshot() {
+    try {
+      const response = await fetch(`game-data.json?updated=${Date.now()}`, { cache: "no-store" });
+      if (!response.ok) throw new Error(`Snapshot profil membalas ${response.status}.`);
+      const snapshot = await response.json();
+
+      Object.entries(gameDataLabels).forEach(([gameName, fields]) => {
+        const container = document.getElementById(`${gameName}-live-data`);
+        const game = snapshot.games?.[gameName];
+        if (game) {
+          renderGameProfile(container, game, fields);
+          return;
+        }
+
+        container.replaceChildren();
+        const status = document.createElement("span");
+        status.className = "live-data-status is-unavailable";
+        status.textContent = "Snapshot belum tersedia. Jalankan workflow Update public game profiles di GitHub Actions.";
+        container.appendChild(status);
+      });
+    } catch (error) {
+      document.querySelectorAll(".game-live-data").forEach((container) => {
+        container.replaceChildren();
+        const status = document.createElement("span");
+        status.className = "live-data-status is-unavailable";
+        status.textContent = "Data game belum dapat dimuat. Periksa file snapshot game-data.json.";
+        status.title = error.message;
+        container.appendChild(status);
+      });
+    }
+  }
+
+  loadGameSnapshot();
 }
