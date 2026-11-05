@@ -123,6 +123,11 @@ if (gif) {
     }
     document.body.appendChild(fragment);
   });
+  gif.addEventListener("keydown", (event) => {
+    if (event.key !== "Enter" && event.key !== " ") return;
+    event.preventDefault();
+    gif.click();
+  });
 }
 
 if (copyButton && copyStatus) {
@@ -135,6 +140,42 @@ if (copyButton && copyStatus) {
       copyStatus.textContent = `Copy unavailable. Username: ${username}`;
     }
   });
+}
+
+if (document.body.classList.contains("portfolio-home")) {
+  const portfolioNav = document.querySelector(".portfolio-nav");
+  let scrollUpdateScheduled = false;
+
+  function updatePortfolioScrollState() {
+    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const progress = scrollableHeight > 0 ? (window.scrollY / scrollableHeight) * 100 : 0;
+    portfolioNav.style.setProperty("--page-progress", `${Math.min(100, Math.max(0, progress))}%`);
+    scrollUpdateScheduled = false;
+  }
+
+  window.addEventListener("scroll", () => {
+    if (scrollUpdateScheduled) return;
+    scrollUpdateScheduled = true;
+    window.requestAnimationFrame(updatePortfolioScrollState);
+  }, { passive: true });
+  updatePortfolioScrollState();
+
+  const sectionLinks = [...portfolioNav.querySelectorAll('.nav-links a[href^="#"]')];
+  if ("IntersectionObserver" in window) {
+    const activeSectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        sectionLinks.forEach((link) => {
+          if (link.hash === `#${entry.target.id}`) link.setAttribute("aria-current", "location");
+          else link.removeAttribute("aria-current");
+        });
+      });
+    }, { rootMargin: "-25% 0px -60% 0px" });
+    sectionLinks.forEach((link) => {
+      const section = document.querySelector(link.hash);
+      if (section) activeSectionObserver.observe(section);
+    });
+  }
 }
 
 if (document.getElementById("spotify-connect")) {

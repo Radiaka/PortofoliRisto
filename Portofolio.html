@@ -1,52 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Your Name – Portfolio</title>
+<meta name="theme-color" content="#f5f6fb">
+<meta name="description" content="Portofolio Radiaka — web developer, project, dan keahlian.">
+<title>Radiaka — Portfolio</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
-<nav><a class="site-brand" href="Portofolio.html" aria-label="Radiaka — Beranda">&lt;YN/&gt;</a><div class="nav-links"><a href="#about">Tentang</a><a href="projects.html">Proyek</a><a href="#skills">Keahlian</a><a href="#fun">Hiburan</a><a href="spotify.html">Game</a><a href="#contact">Kontak</a></div><button id="theme" aria-label="Ganti tema">◐</button></nav>
+<body id="top" class="portfolio-home">
+<nav class="portfolio-nav">
+  <a class="site-brand" href="Portofolio.html" aria-label="Radiaka — Beranda">&lt;YN/&gt;</a>
+  <div class="nav-links">
+    <a href="#about">Tentang</a>
+    <a href="projects.html">Proyek</a>
+    <a href="#skills">Keahlian</a>
+    <a href="#fun">Hiburan</a>
+    <a href="spotify.html">Game</a>
+    <a href="#contact">Kontak</a>
+  </div>
+  <button id="theme" aria-label="Ganti tema">◐</button>
+</nav>
 
-<section class="hero">
-  <img src="hololive-dreams_print_20260728-131045.png" alt="Profile photo">
-  <div>
-    <p style="margin:0;color:var(--mut)">Hi, I’m</p>
-    <h1><span>Nanashi Mumei</span></h1>
-    <div class="role" id="role"></div>
-    <a class="btn" href="projects.html">See my work</a><a class="btn o" href="#contact">Get in touch</a>
+<header class="hero">
+  <div class="hero-portrait">
+    <img src="hololive-dreams_print_20260728-131045.png" alt="Ilustrasi profil Radiaka" fetchpriority="high">
+    <span class="portrait-orbit orbit-a"></span>
+    <span class="portrait-orbit orbit-b"></span>
+    <span class="portrait-spark spark-a" aria-hidden="true">✦</span>
+    <span class="portrait-spark spark-b" aria-hidden="true">✳</span>
+    <span class="portrait-caption"><span></span> AVAILABLE FOR OPPORTUNITIES</span>
+  </div>
+  <div class="hero-copy">
+    <p class="hero-eyebrow"><span aria-hidden="true">✳</span> WEB DEVELOPER · BENGKULU, ID</p>
+    <p class="hero-greeting">Halo, saya</p>
+    <h1><span>Radiaka</span></h1>
+    <div class="role" id="role" aria-live="polite"></div>
+    <p class="hero-description">Saya membangun aplikasi web yang membantu menyelesaikan masalah nyata—dengan antarmuka yang rapi, sederhana, dan mudah digunakan.</p>
+    <div class="hero-actions">
+      <a class="btn" href="projects.html">Lihat project <span aria-hidden="true">↗</span></a>
+      <a class="btn o" href="#contact">Hubungi saya</a>
+    </div>
+    <div class="hero-meta"><span>STACK FAVORIT</span><span class="meta-divider"></span><strong>Laravel · JavaScript · MySQL</strong></div>
+  </div>
+  <a class="hero-scroll" href="#about"><span></span> GULIR UNTUK MENGENAL</a>
+</header>
+
+<section id="about" class="about-section rv">
+  <div class="section-heading">
+    <p class="section-eyebrow">01 — TENTANG SAYA</p>
+    <h2>Mengubah ide menjadi<br><span>pengalaman digital.</span></h2>
+  </div>
+  <div class="about-grid">
+    <p class="about-copy">Saya menikmati proses mengubah kebutuhan dan masalah nyata menjadi aplikasi web yang bersih dan berguna. Fokus saya pada Laravel, MySQL, serta teknologi front-end modern—dengan perhatian khusus pada pengalaman pengguna dan detail antarmuka.</p>
+    <div class="about-note">
+      <span class="about-note-icon" aria-hidden="true">✳</span>
+      <div><strong>Berangkat dari kebutuhan.</strong><p>Setiap fitur sebaiknya terasa jelas, bermanfaat, dan mudah dipakai.</p></div>
+    </div>
   </div>
 </section>
 
-<section id="about" class="rv">
-  <h2>About me</h2>
-  <p>I’m a developer who enjoys turning real problems into clean, useful web apps. I like building with Laravel, MySQL and modern front-end tools, and I care about simple interfaces that people can use without a manual.</p>
+<section id="projects" class="home-projects rv">
+  <div class="section-heading section-heading-row">
+    <div><p class="section-eyebrow">02 — KARYA PILIHAN</p><h2>Project, dari ide<br>hingga jadi.</h2></div>
+    <a class="text-link" href="projects.html">Lihat semua project <span aria-hidden="true">↗</span></a>
+  </div>
+  <a class="featured-project" href="projects.html#hololep">
+    <span class="featured-project-number">FEATURED PROJECT · 01</span>
+    <span class="featured-project-art" aria-hidden="true"><span class="project-orbit project-orbit-a"></span><span class="project-orbit project-orbit-b"></span><span class="project-monogram">H</span><span class="project-art-label">TWO-PLAYER<br>SHOOTER</span></span>
+    <span class="featured-project-copy">
+      <span class="featured-project-type">2-PLAYER SHOOTER · PYTHON</span>
+      <strong>hololep</strong>
+      <span class="featured-project-description">Game tembak-tembakan dua pemain yang dibuat dengan Python.</span>
+      <span class="project-tags"><i>Python</i><i>2 Pemain</i><i>Game</i></span>
+      <span class="featured-project-link">Jelajahi project <b aria-hidden="true">↗</b></span>
+    </span>
+    <span class="featured-project-arrow" aria-hidden="true">↗</span>
+  </a>
+  <p class="project-section-note">Eksperimen, repository, dan demo lainnya ada di halaman Projects.</p>
 </section>
 
-<section id="projects" class="rv">
-  <h2>Projects</h2>
-  <p>Browse my public GitHub repositories, experiments, and playable demos.</p>
-  <a class="btn" href="projects.html">Explore all projects ↗</a>
+<section id="skills" class="skills-section rv">
+  <div class="section-heading"><p class="section-eyebrow">03 — YANG SAYA GUNAKAN</p><h2>Tools &amp; keahlian.</h2><p class="section-intro">Teknologi yang saya gunakan untuk merancang dan membangun produk web.</p></div>
+  <div class="skills-grid">
+    <div class="skill"><div><span>Laravel / PHP</span><span>85%</span></div><div class="bar"><i data-w="85"></i></div></div>
+    <div class="skill"><div><span>HTML / CSS / JavaScript</span><span>90%</span></div><div class="bar"><i data-w="90"></i></div></div>
+    <div class="skill"><div><span>MySQL</span><span>80%</span></div><div class="bar"><i data-w="80"></i></div></div>
+    <div class="skill"><div><span>UI/UX · Figma</span><span>70%</span></div><div class="bar"><i data-w="70"></i></div></div>
+  </div>
 </section>
 
-<section id="skills" class="rv">
-  <h2>Skills</h2>
-  <div class="skill"><div><span>Laravel / PHP</span><span>85%</span></div><div class="bar"><i data-w="85"></i></div></div>
-  <div class="skill"><div><span>HTML / CSS / JavaScript</span><span>90%</span></div><div class="bar"><i data-w="90"></i></div></div>
-  <div class="skill"><div><span>MySQL</span><span>80%</span></div><div class="bar"><i data-w="80"></i></div></div>
-  <div class="skill"><div><span>UI/UX with Figma</span><span>70%</span></div><div class="bar"><i data-w="70"></i></div></div>
+<section id="fun" class="fun-section rv">
+  <div><p class="section-eyebrow">04 — SEDIKIT DI LUAR KODE</p><h2>Kerja serius,<br><span>tetap punya fun.</span></h2><p>Sentuh atau klik GIF untuk kejutan kecil.</p></div>
+  <img id="gif" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExanc5YWlqMmUzc3F2bHRmaXdtd3o1dm9qZmlwazZ6MHRzb2htcm51OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NgwXvR1qHlqRohCGi3/giphy.gif" alt="GIF kejutan" role="button" tabindex="0" aria-label="Klik untuk kejutan confetti" loading="lazy">
 </section>
 
-<section id="fun" class="fun rv">
-  <h2 style="display:inline-block">Just for fun</h2>
-  <p>Click the GIF for a surprise.</p>
-  <img id="gif" src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExanc5YWlqMmUzc3F2bHRmaXdtd3o1dm9qZmlwazZ6MHRzb2htcm51OSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/NgwXvR1qHlqRohCGi3/giphy.gif" alt="Happy birthday GIF by circlecan">
-</section>
-
-<section id="contact" class="rv">
-  <h2>Contact</h2>
-  <p class="contact-intro">Want to work together or play a game? Find me here.</p>
+<section id="contact" class="contact-section rv">
+  <div class="section-heading"><p class="section-eyebrow">05 — MARI TERHUBUNG</p><h2>Ada ide menarik?<br><span>Mari ngobrol.</span></h2></div>
+  <p class="contact-intro">Punya project, pertanyaan, atau ingin sekadar menyapa? Temukan saya di sini.</p>
   <div class="social-grid">
     <a class="social-card email-card" href="mailto:ristobenitoadiaka18@gmail.com">
       <span class="social-icon" aria-hidden="true">
@@ -87,7 +138,7 @@
   <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
 </section>
 
-<footer>© 2026 Nanashi Mumei. Built with HTML, CSS and JavaScript.</footer>
+<footer class="portfolio-footer"><a href="#top" class="footer-brand">&lt;YN/&gt;</a><span>© 2026 Radiaka · Dibuat dengan rasa ingin tahu.</span><a href="projects.html">Lihat project <span aria-hidden="true">↗</span></a></footer>
 
 <script src="script.js"></script>
 </body>
