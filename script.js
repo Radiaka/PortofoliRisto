@@ -276,6 +276,12 @@ async function spotifyApi(path) {
   if (!response.ok) {
     const details = await response.json().catch(() => ({}));
     if (response.status === 401) clearSpotifySession();
+    if (response.status === 403) {
+      const reason = details.error?.message || details.error_description || details.message;
+      throw new Error(
+        `Spotify menolak akses ke ${url.pathname} (403). Periksa apakah akun ini sudah ditambahkan ke User Management aplikasi di Spotify Developer Dashboard, izin (scope) aplikasi, dan persyaratan akun Development Mode.${reason ? ` Detail: ${reason}` : ""}`,
+      );
+    }
     if (response.status === 429) {
       const error = new Error("Spotify rate limit reached. Playback refresh will resume automatically.");
       const retryAfter = Number(response.headers.get("Retry-After"));
