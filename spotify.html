@@ -29,7 +29,7 @@
         <div>
           <p class="spotify-kicker"><span class="spotify-live-dot"></span> MY SPOTIFY</p>
           <h1>Soundtrack of<br>my recent days.</h1>
-          <p class="spotify-page-intro">A little window into what I've been listening to lately.</p>
+          <p class="spotify-page-intro">Lagu yang sedang diputar dan yang sering didengarkan.</p>
         </div>
         <a class="spotify-profile-link" href="https://open.spotify.com/user/31aawj2rjoaqf3kx3scbmbtdnzbq" target="_blank" rel="noopener noreferrer">
           Open Spotify profile <span aria-hidden="true">↗</span>
@@ -58,11 +58,18 @@
         <article class="now-playing-card">
           <div class="spotify-card-heading">
             <div><span class="spotify-label">RIGHT NOW</span><h2>Currently listening</h2></div>
-            <span class="playing-indicator" aria-hidden="true"><i></i><i></i><i></i></span>
+            <span class="playback-state" id="spotify-playback-state">Belum ada lagu</span>
           </div>
           <div class="now-playing-content" id="spotify-now-playing" aria-live="polite">
             <div class="track-art track-art-placeholder">♫</div>
-            <div class="track-copy"><strong>Nothing playing yet</strong><span>Connect Spotify to check playback</span></div>
+            <div class="track-copy"><strong>Belum ada lagu</strong><span>Hubungkan Spotify untuk melihat pemutaran.</span></div>
+          </div>
+          <div class="spotify-lyrics" aria-live="polite">
+            <div>
+              <span class="spotify-label">LIRIK</span>
+              <p id="spotify-lyrics-copy">Lirik akan tersedia sebagai pencarian saat lagu terdeteksi.</p>
+            </div>
+            <a id="spotify-lyrics-link" href="https://www.google.com/search?q=lirik+lagu" target="_blank" rel="noopener noreferrer" aria-disabled="true">Cari lirik ↗</a>
           </div>
         </article>
         <article class="history-card">

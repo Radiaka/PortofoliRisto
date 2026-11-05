@@ -158,10 +158,15 @@ const spotifyScopes = [
   "user-read-currently-playing",
 ].join(" ");
 let spotifyPollTimer;
+let currentTrackTimer;
 let tokenRefreshRequest;
 let lastHistoryUpdate = 0;
 let playbackRequestInFlight = false;
 let playbackPollDelay = 5_000;
+let currentTrackProgress = null;
+const spotifyPlaybackState = document.getElementById("spotify-playback-state");
+const spotifyLyricsCopy = document.getElementById("spotify-lyrics-copy");
+const spotifyLyricsLink = document.getElementById("spotify-lyrics-link");
 
 function getSpotifyRedirectUri() {
   if (window.location.protocol === "file:") return "";
@@ -313,22 +318,38 @@ function updateSpotifyProfile(profile) {
 }
 
 function updateCurrentTrack(playback) {
+  window.clearInterval(currentTrackTimer);
   spotifyCurrentTrack.replaceChildren();
   const track = playback?.item;
   if (!track) {
+    currentTrackProgress = null;
+    spotifyPlaybackState.textContent = "Tidak sedang memutar";
+    spotifyPlaybackState.dataset.playing = "false";
     const placeholder = document.createElement("div");
     placeholder.className = "track-art track-art-placeholder";
     placeholder.textContent = "♫";
     const copy = document.createElement("div");
     copy.className = "track-copy";
     const title = document.createElement("strong");
-    title.textContent = "Nothing playing right now";
+    title.textContent = "Belum ada lagu";
     const detail = document.createElement("span");
-    detail.textContent = "Start playing music on Spotify to see it here.";
+    detail.textContent = "Mulai putar musik di Spotify untuk melihat lagu di sini.";
     copy.append(title, detail);
     spotifyCurrentTrack.append(placeholder, copy);
+    spotifyLyricsCopy.textContent = "Lirik akan bisa dicari setelah lagu terdeteksi.";
+    spotifyLyricsLink.href = "https://www.google.com/search?q=lirik+lagu";
+    spotifyLyricsLink.setAttribute("aria-disabled", "true");
     return;
   }
+
+  const isPlaying = Boolean(playback.is_playing);
+  spotifyPlaybackState.textContent = isPlaying ? "Sedang diputar" : "Dijeda";
+  spotifyPlaybackState.dataset.playing = String(isPlaying);
+  const artistNames = track.artists.map((artist) => artist.name).join(", ");
+  const lyricsQuery = `${track.name} ${artistNames} lirik`;
+  spotifyLyricsCopy.textContent = `Lirik untuk “${track.name}” tidak disediakan oleh Spotify API. Cari lirik lagu ini di web.`;
+  spotifyLyricsLink.href = `https://www.google.com/search?q=${encodeURIComponent(lyricsQuery)}`;
+  spotifyLyricsLink.removeAttribute("aria-disabled");
 
   const artwork = track.album?.images?.[0]?.url;
   if (artwork) {
@@ -350,27 +371,60 @@ function updateCurrentTrack(playback) {
   title.className = "track-title";
   title.textContent = track.name;
   const artists = document.createElement("span");
-  artists.textContent = track.artists.map((artist) => artist.name).join(", ");
+  artists.textContent = artistNames;
   const album = document.createElement("span");
   album.className = "track-album";
-  album.textContent = playback.is_playing ? track.album?.name || "Now playing" : "Paused";
+  album.textContent = track.album?.name || "";
   copy.append(title, artists, album);
   spotifyCurrentTrack.appendChild(copy);
 
-  if (playback.is_playing && track.duration_ms) {
+  if (track.duration_ms) {
     const progress = document.createElement("div");
     progress.className = "track-progress";
     const elapsed = document.createElement("span");
-    elapsed.textContent = formatTrackTime(playback.progress_ms || 0);
+    elapsed.className = "track-elapsed";
     const bar = document.createElement("span");
     bar.className = "track-progress-bar";
+    bar.setAttribute("role", "progressbar");
+    bar.setAttribute("aria-label", "Progres lagu");
+    bar.setAttribute("aria-valuemin", "0");
+    bar.setAttribute("aria-valuemax", String(track.duration_ms));
     const fill = document.createElement("i");
-    fill.style.width = `${Math.min(100, (playback.progress_ms / track.duration_ms) * 100)}%`;
     bar.appendChild(fill);
     const duration = document.createElement("span");
+    duration.className = "track-duration";
     duration.textContent = formatTrackTime(track.duration_ms);
     progress.append(elapsed, bar, duration);
     copy.appendChild(progress);
+
+    currentTrackProgress = {
+      elapsed,
+      fill,
+      bar,
+      duration: track.duration_ms,
+      startedAt: Date.now(),
+      startProgress: Math.min(playback.progress_ms || 0, track.duration_ms),
+      isPlaying,
+    };
+    const renderProgress = () => {
+      if (!currentTrackProgress) return;
+      const progressMs = Math.min(
+        currentTrackProgress.duration,
+        currentTrackProgress.startProgress
+          + (currentTrackProgress.isPlaying ? Date.now() - currentTrackProgress.startedAt : 0),
+      );
+      currentTrackProgress.elapsed.textContent = formatTrackTime(progressMs);
+      currentTrackProgress.fill.style.width = `${(progressMs / currentTrackProgress.duration) * 100}%`;
+      currentTrackProgress.bar.setAttribute("aria-valuenow", String(Math.round(progressMs)));
+      currentTrackProgress.bar.setAttribute(
+        "aria-valuetext",
+        `${formatTrackTime(progressMs)} dari ${formatTrackTime(currentTrackProgress.duration)}`,
+      );
+    };
+    renderProgress();
+    if (isPlaying) currentTrackTimer = window.setInterval(renderProgress, 1000);
+  } else {
+    currentTrackProgress = null;
   }
 }
 
