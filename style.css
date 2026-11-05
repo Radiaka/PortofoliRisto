@@ -76,6 +76,7 @@ nav {
   backdrop-filter: blur(16px);
 }
 nav .site-brand {
+  flex: 0 0 auto;
   color: var(--ac);
   font-size: 19px;
   font-weight: 800;
@@ -753,7 +754,7 @@ a.game-profile:focus-visible { outline: 3px solid var(--game-accent); outline-of
 }
 .portfolio-nav::after { position: absolute; right: 0; bottom: -1px; left: 0; height: 2px; width: var(--page-progress, 0%); background: linear-gradient(90deg, var(--home-accent), var(--ac2)); content: ""; transition: width .12s linear; }
 .portfolio-nav .nav-links { gap: 8px 18px; }
-.portfolio-home nav .site-brand { display: inline-flex; min-width: 52px; min-height: 38px; align-items: center; justify-content: center; border: 1px solid color-mix(in srgb, var(--home-accent) 22%, var(--bd)); border-radius: 12px; background: color-mix(in srgb, var(--home-accent) 7%, var(--card)); color: var(--home-accent); font-size: 17px; }
+.portfolio-home nav .site-brand { display: inline-flex; min-height: 38px; align-items: center; padding-inline: 8px; border: 1px solid color-mix(in srgb, var(--home-accent) 22%, var(--bd)); border-radius: 12px; background: color-mix(in srgb, var(--home-accent) 7%, var(--card)); color: var(--home-accent); font-size: 13px; letter-spacing: -.04em; }
 .portfolio-home nav .nav-links a { position: relative; padding: 8px 0; font-size: 12px; }
 .portfolio-home nav .nav-links a::after { position: absolute; right: 0; bottom: 2px; left: 0; height: 2px; border-radius: 2px; background: var(--home-accent); content: ""; transform: scaleX(0); transform-origin: left; transition: transform .2s ease; }
 .portfolio-home nav .nav-links a:hover::after,
@@ -870,7 +871,7 @@ a.game-profile:focus-visible { outline: 3px solid var(--game-accent); outline-of
 }
 @media (max-width: 700px) {
   .portfolio-home nav.portfolio-nav { min-height: 62px; gap: 12px; padding-inline: 4vw; }
-  .portfolio-home nav .site-brand { min-width: 45px; min-height: 34px; font-size: 15px; }
+  .portfolio-home nav .site-brand { min-height: 34px; padding-inline: 6px; font-size: 11px; }
   .portfolio-home nav .nav-links { gap: 4px 14px; }
   .portfolio-home nav .nav-links a { font-size: 10px; }
   .portfolio-home #theme { width: 32px; height: 32px; flex-basis: 32px; border-radius: 10px; }
