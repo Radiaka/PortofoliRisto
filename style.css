@@ -75,13 +75,15 @@ nav {
   border-bottom: 1px solid var(--bd);
   backdrop-filter: blur(16px);
 }
-nav b {
+nav .site-brand {
   color: var(--ac);
   font-size: 19px;
+  font-weight: 800;
   letter-spacing: -.06em;
+  text-decoration: none;
   white-space: nowrap;
 }
-nav div { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; }
+nav .nav-links { display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: center; }
 nav a {
   color: var(--mut);
   font-size: 13px;
@@ -89,6 +91,7 @@ nav a {
   transition: color .2s ease;
 }
 nav a:hover { color: var(--ac); }
+nav .nav-links a[aria-current="page"] { color: var(--ac); font-weight: 750; }
 #theme {
   width: 36px;
   height: 36px;
@@ -454,10 +457,11 @@ footer span { color: var(--mut); }
 
 @media (max-width: 620px) {
   html { scroll-padding-top: 100px; }
-  nav { align-items: flex-start; padding-inline: 5vw; }
-  nav b { padding-top: 4px; }
-  nav div { justify-content: flex-end; gap: 5px 12px; }
+  nav { align-items: center; gap: 14px; padding-inline: 5vw; }
+  nav .nav-links { min-width: 0; flex: 1; flex-wrap: nowrap; justify-content: flex-start; gap: 5px 16px; overflow-x: auto; scrollbar-width: none; }
+  nav .nav-links::-webkit-scrollbar { display: none; }
   nav a { font-size: 12px; }
+  nav .nav-links a { flex: 0 0 auto; white-space: nowrap; }
   #theme { width: 32px; height: 32px; }
   section { padding: 58px 6vw; }
   .hero { min-height: auto; flex-direction: column; align-items: flex-start; gap: 30px; padding-top: 70px; padding-bottom: 65px; }
